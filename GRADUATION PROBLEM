@@ -1,0 +1,62 @@
+from itertools import combinations
+
+
+def Solve(N):
+    # Write your code here
+    if (N == '5' or N == '6'):
+        n = int(N);
+    else:
+        n = N
+    s = []
+    for x in range(n):
+        s.append('A')
+        s.append('P')
+    t = set(combinations(s, n))
+
+    actual = 0
+    no = 0;
+
+    for x in list(t):
+        if ('AA' in ''.join(x)):
+            pass;
+        else:
+            actual += 1;
+            if (x[n - 1] == 'A'):
+                no += 1;
+
+    if (N == '5' or N == '6'):
+        return actual, no;
+
+    actual = str(actual);
+    no = "{}/{}".format(no, actual);
+
+    return [actual, no]
+
+
+N = int(input())
+diff = []
+diff1 = []
+t = 6;
+if (N > 6):
+    j, k = Solve('5')
+    j1, k1 = Solve('6')
+    diff.append(j)
+    diff.append(j1)
+    for y in range(2, (N - 5) + 1):
+        diff.append(diff[y - 1] + diff[y - 2]);
+
+    diff1.append(k)
+    diff1.append(k1);
+
+    for y in range(2, (N - 5) + 1):
+        diff1.append(diff1[y - 1] + diff1[y - 2]);
+
+    actual = str(diff[N - 5]);
+    no = "{}/{}".format(diff1[N - 5], actual);
+    for i_out_ in [actual, no]:
+        print(i_out_)
+else:
+
+    out_ = Solve(N)
+    for i_out_ in out_:
+        print(i_out_)
